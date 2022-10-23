@@ -72,3 +72,71 @@ def test_clear_matrix():
             for k in range(i):
                 for m in range(j):
                     assert not matrix[k][m]
+
+
+def test_alive_neighbours_count():
+    for i in range(1, 10):
+        for j in range(1, 10):
+            matrix = Matrix.create(i, j)
+            for k in range(i):
+                for m in range(j):
+                    assert Matrix.alive_neighbours_count(matrix, k, m) == 0
+            for k in range(i):
+                for m in range(j):
+                    matrix = Matrix.set_cell(matrix, k, m, True)
+            corners = {(0, 0), (0, j - 1), (i - 1, 0), (i - 1, j - 1)}
+            borders = {
+                (y, 0) for y in range(1, i - 1)
+            } | {
+                (0, x) for x in range(1, j - 1)
+            } | {
+                (y, j - 1) for y in range(1, i - 1)
+            } | {
+                (i - 1, x) for x in range(1, j - 1)
+            }
+            center = {*((y, x) for y in range(1, i - 1) for x in range(1, j - 1))}
+            for k in range(i):
+                for m in range(j):
+                    n = Matrix.alive_neighbours_count(matrix, k, m)
+                    cell = (k, m)
+                    assert cell in (corners | borders | center)
+                    if i == 1 and j == 1:
+                        assert n == 0
+                    elif i == 1 or j == 1:
+                        assert cell in (corners | borders)
+                        if cell in corners:
+                            assert n == 1
+                        elif cell in borders:
+                            assert n == 2
+                    elif cell in corners:
+                        assert n == 3
+                    elif cell in borders:
+                        assert n == 5
+                    elif cell in center:
+                        assert n == 8
+
+
+def test_next_epoch_cell():
+    for i in range(1, 10):
+        for j in range(1, 10):
+            matrix = Matrix.create(i, j)
+            for k in range(i):
+                for m in range(j):
+                    n = Matrix.alive_neighbours_count(matrix, k, m)
+                    alive = Matrix.next_epoch_cell(matrix, k, m)
+                    assert (
+                            (2 <= n <= 3) and alive
+                            or
+                            (n < 2 or n > 3) and not alive
+                    )
+
+
+def test_next_epoch():
+    for i in range(1, 10):
+        for j in range(1, 10):
+            matrix = Matrix.create(i, j)
+            next_matrix = Matrix.next_epoch(matrix)
+            for k in range(i):
+                for m in range(j):
+                    alive = Matrix.next_epoch_cell(matrix, k, m)
+                    assert alive == next_matrix[k][m]

@@ -11,11 +11,12 @@ class GameFrame(tkinter.Frame):
     SCREEN_WIDTH = MATRIX_WIDTH * SCALE
     SCREEN_HEIGHT = MATRIX_HEIGHT * SCALE
     OUTLINE_WIDTH = 2
+    PERIOD = 250
 
     def __init__(self):
         super().__init__()
         self.matrix = Matrix.create(20, 20)
-        self.matrix = Matrix.random_fill(self.matrix)
+        # self.matrix = Matrix.random_fill(self.matrix)
         self.canvas = tkinter.Canvas(self, bg="white", height=self.SCREEN_HEIGHT, width=self.SCREEN_WIDTH)
         self.pause = True
         self.initUI()
@@ -61,12 +62,12 @@ class GameFrame(tkinter.Frame):
 def tk_main():
     def update():
         gf.update_screen()
-        root.after(1000, update)
+        root.after(gf.PERIOD, update)
 
     root = tkinter.Tk()
     gf = GameFrame()
     root.geometry(f"{gf.SCREEN_WIDTH}x{gf.SCREEN_HEIGHT}+{gf.MARGIN}+{gf.MARGIN}")
     root.bind("<ButtonPress-1>", gf.handle_mouse_click)
     root.bind("<space>", gf.switch_pause)
-    root.after(1000, update)
+    root.after(gf.PERIOD, update)
     root.mainloop()
