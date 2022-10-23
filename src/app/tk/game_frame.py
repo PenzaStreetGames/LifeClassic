@@ -28,13 +28,11 @@ class GameFrame(tkinter.Frame):
 
     def update_screen(self):
         if not self.pause:
-            print("update")
             self.matrix = Matrix.next_epoch(self.matrix)
             self.draw_field()
 
     def switch_pause(self, event):
         self.pause = not self.pause
-        print(self.pause)
 
     def handle_mouse_click(self, event):
         row = event.y // self.SCALE
