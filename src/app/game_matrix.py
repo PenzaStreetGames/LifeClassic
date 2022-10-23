@@ -1,3 +1,6 @@
+import random
+
+
 class Matrix:
     ALIVE_CHAR = "O"
     DEAD_CHAR = "."
@@ -28,3 +31,13 @@ class Matrix:
         symbol_matrix = list(list(Matrix.ALIVE_CHAR if cell else Matrix.DEAD_CHAR for cell in line) for line in matrix)
         result = "\n".join("".join(line) for line in symbol_matrix)
         return result
+
+    @staticmethod
+    def random_fill(matrix):
+        for i in range(len(matrix)):
+            for j in range(len(matrix[i])):
+                val = True if random.random() > 0.5 else False
+                Matrix.set_cell(matrix, i, j, val)
+        return matrix
+
+
