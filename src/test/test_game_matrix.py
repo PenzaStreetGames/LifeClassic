@@ -22,9 +22,9 @@ def test_set_cell():
             for k in range(len(matrix)):
                 for m in range(len(matrix[k])):
                     assert (
-                            matrix[k][m] and k == i and m == j
-                            or
-                            not matrix[k][m] and (k != i or m != j)
+                        matrix[k][m] and k == i and m == j
+                        or
+                        not matrix[k][m] and (k != i or m != j)
                     )
             matrix = Matrix.set_cell(matrix, i, j, False)
 
@@ -41,9 +41,9 @@ def test_str_matrix():
             for k in range(len(matrix)):
                 for m in range(len(matrix[k])):
                     assert (
-                            matrix[k][m] and matrix_str[k * (j + 1) + m] == Matrix.ALIVE_CHAR
-                            or
-                            not matrix[k][m] and matrix_str[k * (j + 1) + m] == Matrix.DEAD_CHAR
+                        matrix[k][m] and matrix_str[k * (j + 1) + m] == Matrix.ALIVE_CHAR
+                        or
+                        not matrix[k][m] and matrix_str[k * (j + 1) + m] == Matrix.DEAD_CHAR
                     )
 
 

@@ -40,4 +40,9 @@ class Matrix:
                 Matrix.set_cell(matrix, i, j, val)
         return matrix
 
+    @staticmethod
+    def next_epoch(matrix):
+        print("implement me", Matrix.next_epoch.__name__)
+        return matrix
+
 
