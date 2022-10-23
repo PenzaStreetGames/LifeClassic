@@ -85,15 +85,10 @@ def test_alive_neighbours_count():
                 for m in range(j):
                     matrix = Matrix.set_cell(matrix, k, m, True)
             corners = {(0, 0), (0, j - 1), (i - 1, 0), (i - 1, j - 1)}
-            borders = {
-                (y, 0) for y in range(1, i - 1)
-            } | {
-                (0, x) for x in range(1, j - 1)
-            } | {
-                (y, j - 1) for y in range(1, i - 1)
-            } | {
-                (i - 1, x) for x in range(1, j - 1)
-            }
+            borders = {(y, 0) for y in range(1, i - 1)} | {
+                (0, x) for x in range(1, j - 1)} | {
+                (y, j - 1) for y in range(1, i - 1)} | {
+                (i - 1, x) for x in range(1, j - 1)}
             center = {*((y, x) for y in range(1, i - 1) for x in range(1, j - 1))}
             for k in range(i):
                 for m in range(j):
