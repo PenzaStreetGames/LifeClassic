@@ -139,6 +139,8 @@ def test_next_epoch():
     for i in range(1, 10):
         for j in range(1, 10):
             matrix = Matrix.create(i, j)
+            random.seed(42)
+            matrix = Matrix.random_fill(matrix)
             next_matrix = Matrix.next_epoch(matrix)
             for k in range(i):
                 for m in range(j):
